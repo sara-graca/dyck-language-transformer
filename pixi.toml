@@ -1,0 +1,17 @@
+[workspace]
+authors = ["sara-graca <saravsgraca@gmail.com>"]
+channels = ["conda-forge"]
+name = "dyck_transformer"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+pytorch = ">=2.10.0,<3"
+numpy = ">=2.4.3,<3"
+scikit-learn = ">=1.8.0,<2"
+matplotlib = ">=3.10.9,<4"
+jupyter = ">=1.1.1,<2"
+ipykernel = ">=7.2.0,<8"
+tqdm = ">=4.67.3,<5"
