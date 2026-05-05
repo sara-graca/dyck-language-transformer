@@ -18,10 +18,10 @@ def generate_clean(parenthesis, min_len=4, max_len=40, max_depth=4):
     while True:
         remaining = max_len - len(out)
 
-        if len(out) >= min_len and (len(stack) == 0 or remaining <= 0):
+        if len(out) >= min_len and (len(stack) == 0 or remaining <= len(stack)):
             break
 
-        can_open = len(stack) < max_depth and remaining > 1
+        can_open = len(stack) < max_depth and remaining > len(stack) + 1
         can_close = len(stack) > 0
 
         if len(out) < min_len:
@@ -37,7 +37,7 @@ def generate_clean(parenthesis, min_len=4, max_len=40, max_depth=4):
             op = stack.pop()
             out.append(closes[op])
 
-    while stack and len(out) < max_len:
+    while stack:
         out.append(closes[stack.pop()])
 
     return out
@@ -139,7 +139,7 @@ def generate_examples(nb_ex, min_len=4, max_len=40, max_depth=4, corrupt_prob=0.
     ]
 
     for _ in range(nb_ex):
-        clean = generate_clean(parenthesis, min_len=min_len, max_len=max_len, max_depth=max_depth)
+        clean = generate_clean(parenthesis, min_len=min_len, max_len=max_len-2, max_depth=max_depth)
         corrupted = clean.copy()
 
         binary_label = 1
@@ -191,7 +191,7 @@ def generate_examples_with_error_type(nb_ex, min_len=4, max_len=40, max_depth=4,
         ("E4", E4_premature_close),
     ]
     for _ in range(nb_ex):
-        clean = generate_clean(parenthesis, min_len=min_len, max_len=max_len, max_depth=max_depth)
+        clean = generate_clean(parenthesis, min_len=min_len, max_len=max_len-2, max_depth=max_depth)
         corrupted = clean.copy()
         binary_label = 1
         error_type = "none"
